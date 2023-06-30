@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 360833530}
   - component: {fileID: 360833531}
   - component: {fileID: 360833532}
+  - component: {fileID: 360833533}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -364,8 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377dc194323749847886a82da5542dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 6
+  sprintSpeed: 9
+  dashSpeed: 10
   groundDrag: 5
+  sprintKey: 304
   playerheight: 2
   groundMask:
     serializedVersion: 2
@@ -376,6 +380,33 @@ MonoBehaviour:
   airmultiplier: 0.4
   jumpCooldown: 0.25
   orientation: {fileID: 1080214795}
+  Dashing: 0
+  state: 0
+--- !u!114 &360833533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360833529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 331f7c16667654a4b9ff31183bf7c4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashKey: 101
+  dashForce: 40
+  dashUpwardForce: 0
+  dashTime: 0.25
+  orientation: {fileID: 1080214795}
+  playercam: {fileID: 2027183279}
+  dashCd: 1.5
+  useCameraforward: 0
+  allowAlldirections: 1
+  disablegravity: 1
+  resetVelocity: 1
+  cam: {fileID: 2027183280}
+  dashFOV: 80
 --- !u!1 &363967079
 GameObject:
   m_ObjectHideFlags: 0

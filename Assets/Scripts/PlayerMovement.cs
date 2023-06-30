@@ -1,15 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     [Header("Movement")]
-    public float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
+    public float dashSpeed;
+    private float moveSpeed;
+
 
     public float groundDrag;
 
+    [Header("Sprinting")]
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Detection")]
 
@@ -35,7 +43,41 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    public enum MoveState
+    {
+        Walking,
+        Sprinting,
+        Dashing,
+        Air
+    }
 
+    public bool Dashing;
+
+    public MoveState state;
+
+
+    private void StateHandler()
+    {
+        if(isGrounded && Input.GetKey(sprintKey))
+        {
+            state = MoveState.Sprinting;
+            moveSpeed = sprintSpeed;
+        }
+        else if (Dashing)
+        {
+            state = MoveState.Dashing;
+            moveSpeed = dashSpeed;
+        }
+        else if(isGrounded && !Input.GetKey(sprintKey))
+        {
+            state = MoveState.Walking;
+            moveSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MoveState.Air;
+        }
+    }
     private void handleinput()
     {
         horizontalinput = Input.GetAxisRaw("Horizontal");
@@ -68,8 +110,9 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerheight *0.5f + 0.2f, groundMask);
         handleinput();
         SpeedControl();
+        StateHandler();
 
-        if (isGrounded)
+        if (state == MoveState.Walking || state == MoveState.Sprinting)
         {
             rb.drag = groundDrag;
         }
