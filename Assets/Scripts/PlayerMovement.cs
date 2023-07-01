@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public GameObject spawnPoint;
 
     public enum MoveState
     {
@@ -119,6 +120,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0f;
+        }
+
+        // if the player falls off the map, respawn at spawn point
+        if (transform.position.y < -10)
+        {
+            transform.position = spawnPoint.transform.position;
         }
     }
 
