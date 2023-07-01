@@ -868,8 +868,6 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
   orientation: {fileID: 1080214795}
-  XRotation: 0
-  YRotation: 0
 --- !u!114 &2027183281
 MonoBehaviour:
   m_ObjectHideFlags: 0

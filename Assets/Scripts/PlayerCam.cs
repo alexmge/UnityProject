@@ -10,8 +10,8 @@ public class PlayerCam : MonoBehaviour
 
     public Transform orientation;
 
-    public float XRotation;
-    public float YRotation;
+    private float XRotation;
+    private float YRotation;
 
 
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class PlayerCam : MonoBehaviour
 
         XRotation -= mouseY;
 
-        XRotation = Mathf.Clamp(mouseX, -90f, 90f);
+        XRotation = Mathf.Clamp(XRotation, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(XRotation, YRotation, 0f);
         orientation.rotation = Quaternion.Euler(0f, YRotation, 0f);
