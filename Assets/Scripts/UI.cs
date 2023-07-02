@@ -9,8 +9,6 @@ public class Pause_menu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
-    public GameObject finishBlock;
-
 
     private void Update()
     {
