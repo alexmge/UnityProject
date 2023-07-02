@@ -38,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
     float horizontalinput;
     float verticalinput;
 
-
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -103,6 +102,16 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        // if the player falls off the map, respawn at spawn point
+        if (transform.position.y < -10)
+        {
+            Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
+            orientation.rotation = Quaternion.Euler(0, 0, 0);
+            transform.position = spawnPoint.transform.position;
+
+            Debug.Log("Camera.main.transform.rotation: " + Camera.main.transform.rotation);
+        }
     }
 
     // Update is called once per frame
@@ -120,12 +129,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0f;
-        }
-
-        // if the player falls off the map, respawn at spawn point
-        if (transform.position.y < -10)
-        {
-            transform.position = spawnPoint.transform.position;
         }
     }
 
@@ -159,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("Jump");
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
+        Debug.Log("Camera.main.transform.rotation: " + Camera.main.transform.rotation);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
