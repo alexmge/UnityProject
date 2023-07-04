@@ -11,6 +11,8 @@ public class TriggerFinish : MonoBehaviour
     public GameObject timer;
     public TMP_Text timedisplaying;
 
+    public AudioSource audioSource;
+
     public void Start()
     {
         timer = GameObject.Find("Timer");
@@ -26,6 +28,7 @@ public class TriggerFinish : MonoBehaviour
             string ttd = timer.GetComponent<Timer>().timer_text.text;
             timedisplaying.text = ttd;
             timer.SetActive(false);
+            audioSource.Play();
             Time.timeScale = 0f;
         }
     }

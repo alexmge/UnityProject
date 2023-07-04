@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPDash : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class FPDash : MonoBehaviour
 
     [Header("Cooldown")]
     public float dashCd;
-    private float dashCdTimer;
+    public float dashCdTimer;
 
 
     [Header("Settings")]
@@ -29,8 +30,9 @@ public class FPDash : MonoBehaviour
     public PlayerCam cam;
     public float dashFOV;
 
-
     private Rigidbody rb;
+
+    public Image ability1;
 
     private PlayerMovement pm;
     // Start is called before the first frame update
@@ -38,6 +40,7 @@ public class FPDash : MonoBehaviour
     {
         pm = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
+        ability1.fillAmount = 0;
     }
 
     // Update is called once per frame
@@ -50,6 +53,11 @@ public class FPDash : MonoBehaviour
 
         if(dashCdTimer > 0)
         {
+            ability1.fillAmount -= 1 / dashCd * Time.deltaTime;
+            if (ability1.fillAmount <= 0)
+            {
+                ability1.fillAmount = 0;
+            }
             dashCdTimer -= Time.deltaTime;
         }
     }
@@ -63,6 +71,7 @@ public class FPDash : MonoBehaviour
         }
         else
         {
+            ability1.fillAmount = 1;
             dashCdTimer = dashCd;
         }
         pm.Dashing = true;
