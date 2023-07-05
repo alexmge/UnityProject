@@ -13,6 +13,9 @@ public class TriggerFinish : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public Camera cam;
+    public GameObject player;
+
     public void Start()
     {
         timer = GameObject.Find("Timer");
@@ -29,7 +32,9 @@ public class TriggerFinish : MonoBehaviour
             timedisplaying.text = ttd;
             timer.SetActive(false);
             audioSource.Play();
-            Time.timeScale = 0f;
+            player.SetActive(false);
+            var script = cam.GetComponent<PlayerCam>();
+            script.enabled = false;
         }
     }
 }

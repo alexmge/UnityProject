@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
     public GameObject spawnPoint;
+    public GameObject blackScreenDeath;
 
     public enum MoveState
     {
@@ -103,14 +105,17 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
 
-        // if the player falls off the map, respawn at spawn point
-        if (transform.position.y < -10)
+        if (transform.position.y < -5)
         {
-            Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
-            orientation.rotation = Quaternion.Euler(0, 0, 0);
-            transform.position = spawnPoint.transform.position;
+            // trigger animation black screen
+            blackScreenDeath.SetActive(true);
+        }
 
-            Debug.Log("Camera.main.transform.rotation: " + Camera.main.transform.rotation);
+
+        // if the player falls off the map, respawn at spawn point
+        if (transform.position.y < -80)
+        {
+           SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
